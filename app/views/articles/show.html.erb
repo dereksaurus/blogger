@@ -3,6 +3,7 @@
     <p><%= image_tag @article.image.url %></p>
 <% end %>
 <p><%= @article.body %></p>
+<p><%= @article.view_count %> views</p>
 <p><%= link_to "<< Back to Articles List", articles_path %></p>
 <p>
     Tags:

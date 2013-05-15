@@ -3,10 +3,23 @@ class ArticlesController < ApplicationController
 
   def index
     @articles = Article.all
+    @popular = Article.all.sort_by{ |a| a.view_count }.reverse.first(3)
+
+    case params[:type]
+      when 'month'
+        @articles = Article.by_month(params[:month])
+      end
+
+    respond_to do |format|
+      format.html
+      format.xml {render xml: @articles }
+    end
+      
   end
 
   def show
     @article = Article.find params[:id]
+    @article.increment_view
     @comment = Comment.new
     @comment.article_id = @article.id
   end
